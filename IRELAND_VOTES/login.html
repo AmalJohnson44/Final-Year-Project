@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login - Ireland Voting System</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Ireland Votes</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <!-- Login Form -->
+    <div class="login-form">
+      <h2>User Login</h2>
+      <form action="process-login.php" method="POST" enctype="multipart/form-data">
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <!-- Face Authentication Section -->
+        <div class="camera-section">
+          <h4>Face Authentication</h4>
+          <div class="camera">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="photo-preview" style="display: none;">
+              <p>Captured Photo:</p>
+              <img id="captured-photo" alt="Captured Image" />
+            </div>
+            <button type="button" class="btn btn-primary mt-3" id="capture">Capture Photo</button>
+            <button type="button" class="btn btn-secondary mt-3" id="retake" style="display: none;">Retake Photo</button>
+            <input type="hidden" id="photo" name="photo" />
+          </div>
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="btn btn-primary w-100 mt-4">Login</button>
+      </form>
+    </div>
+
+    <!-- Ireland Map -->
+    <div class="map-container">
+      <img src="images/roi_flag_map.png" alt="Ireland Map">
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const photoInput = document.getElementById("photo");
+    const captureButton = document.getElementById("capture");
+    const retakeButton = document.getElementById("retake");
+    const photoPreview = document.getElementById("photo-preview");
+    const capturedPhoto = document.getElementById("captured-photo");
+
+    // Start the video stream
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error("Error accessing the camera:", error);
+        alert("Unable to access the camera. Please check your device settings.");
+      });
+
+    // Capture photo
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+
+      // Set canvas dimensions to match the video
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // Draw the video frame onto the canvas
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert the canvas content to Base64 and update the hidden input
+      const photoData = canvas.toDataURL("image/png");
+      photoInput.value = photoData; // Save photo to hidden input
+
+      // Display the captured image with the same size as the video
+      capturedPhoto.src = photoData;
+      capturedPhoto.style.width = ${video.offsetWidth}px; // Match video width
+      capturedPhoto.style.height = ${video.offsetHeight}px; // Match video height
+
+      // Hide the video and show the captured image
+      video.style.display = "none";
+      photoPreview.style.display = "block";
+      retakeButton.style.display = "inline-block";
+      captureButton.style.display = "none";
+    });
+
+    // Retake photo
+    retakeButton.addEventListener("click", () => {
+      // Reset the video and hide the preview
+      video.style.display = "block";
+      photoPreview.style.display = "none";
+      retakeButton.style.display = "none";
+      captureButton.style.display = "inline-block";
+    });
+  </script>
+</body>
+</html>

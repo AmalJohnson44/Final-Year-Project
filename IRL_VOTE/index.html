@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Online Voting System for Ireland</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Voting System Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#">Ireland Votes</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li><a class="nav-link" href="#registration">Register</a></li>
+          <li><a class="nav-link" href="#candidates">Candidates</a></li>
+          <li><a class="nav-link" href="#vote">Vote</a></li>
+        </ul>
+        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+          <li><a class="nav-link" href="#"><img src="images/user.svg" alt="User Icon"></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <div class="intro-excerpt">
+            <h1>Online Voting System for Ireland</h1>
+            <p class="mb-4">Vote securely and efficiently from the comfort of your home.</p>
+            <p><a href="#registration" class="btn btn-secondary me-2">Register Now</a></p>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="hero-img-wrap">
+            <img src="images/roi_flag_map.png" style="max-width:50%;" alt="Voting Image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Section -->
+  <div id="registration" class="product-section">
+    <div class="container">
+      <h2 class="mb-4 section-title">Voter Registration</h2>
+      <p>Register to vote in the upcoming elections. Please provide your details and verify your identity through the system.</p>
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="mb-3">
+          <label for="idProof" class="form-label">Upload ID Proof</label>
+          <input type="file" class="form-control" id="idProof">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Candidates Section -->
+  <!-- Counties Section -->
+<div id="candidates" class="why-choose-section">
+	<div class="container">
+	  <h2 class="section-title">Select Your Constituency</h2>
+	  <p>Select your constituency from the list below to view the candidates running in your area.</p>
+	  <form action="candidate.html" method="GET">
+		<div class="mb-3">
+		  <label for="constituency" class="form-label">Choose Constituency</label>
+		  <select class="form-select" id="county" name="county" required>
+			<option value="carlow-kilkenny">Carlow-Kilkenny</option>
+			<option value="cavan-monaghan">Cavan-Monaghan</option>
+			<option value="clare">Clare</option>
+			<option value="cork-east">Cork East</option>
+      <option value="cork-nc">Cork North-Central</option>
+      <option value="cork-nw">Cork North-West</option>
+      <option value="cork-sc">Cork South-Central</option>
+      <option value="cork-sw">Cork South-West</option>
+      <option value="donegal">Donegal</option>
+			<option value="dublin-bn">Dublin Bay North</option>
+      <option value="dublin-bs">Dublin Bay South</option>
+      <option value="dublin-c">Dublin Central</option>
+      <option value="dublin-f">Dublin Fingal</option>
+      <option value="dublin-mw">Dublin Mid-West</option>
+      <option value="dublin-nw">Dublin North-West</option>
+      <option value="dublin-r">Dublin Rathdown</option>
+      <option value="dublin-sc">Dublin South-Central</option>
+      <option value="dublin-sw">Dublin South-West</option>
+      <option value="dublin-w">Dublin West</option>
+      <option value="dún laoghaire">Dún Laoghaire</option>
+			<option value="galway-e">Galway East</option>
+      <option value="galway-w">Galway West</option>
+			<option value="kerry">Kerry</option>
+			<option value="kildare-n">Kildare North</option>
+      <option value="kildare-s">Kildare South</option>
+			<option value="laois-offaly">Laois-Offaly</option>
+			<option value="limerick-city">Limerick City</option>
+      <option value="limerick-county">Limerick County</option>
+			<option value="longford-westmeath">Longford-Westmeath</option>
+			<option value="louth">Louth</option>
+			<option value="mayo">Mayo</option>
+			<option value="meath-e">Meath East</option>
+      <option value="meath-w">Meath West</option>
+			<option value="roscommon-galway">Roscommon-Galway</option>
+			<option value="sligo-leitrim">Sligo-Leitrim</option>
+			<option value="tipperary">Tipperary</option>
+			<option value="waterford">Waterford</option>
+			<option value="wexford">Wexford</option>
+			<option value="wicklow">Wicklow</option>
+		  </select>
+		</div>
+		<button type="submit" class="btn btn-primary">View Candidates</button>
+	  </form>
+	</div>
+  </div>
+  
+
+  <!-- Voting Section -->
+  <div id="vote" class="we-help-section">
+    <div class="container">
+      <h2 class="section-title mb-4">Cast Your Vote</h2>
+      <p>Once you're registered, log in to securely cast your vote for your preferred candidate.</p>
+      <button class="btn btn-primary">Login to Vote</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2024 Ireland Voting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>

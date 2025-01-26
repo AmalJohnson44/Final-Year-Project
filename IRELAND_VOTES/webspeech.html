@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Dashboard - Current Election</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="User Dashboard Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#" aria-label="Navigate to homepage">Ireland Votes</a>
+      <div class="ms-auto">
+        <a href="logout.html" class="btn btn-secondary btn-sm hover-item" aria-label="Logout from your account" data-voice="You are about to log out. Make sure to save your work.">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <div class="intro-excerpt">
+            <h1 class="display-3 fw-bold">Current Election</h1>
+            <p class="mb-4" aria-describedby="motto-description">"Shaping the Future Together: Secure, Fair, and Accessible Voting for All"</p>
+            <p class="mb-4" id="motto-description">"Online elections bring democracy closer to everyone, offering a secure, transparent, and convenient way to make your voice heard. By embracing technology, we ensure that every vote counts, empowering citizens to participate in shaping their future. Together, we can build a stronger, more inclusive society where everyone has the power to make a difference."</p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="hero-img-wrap text-center">
+            <img src="images/pngegg.png" style="max-width:100%;" alt="Map of Ireland depicting election regions">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Election Sections -->
+  <div class="container my-5" style="color: black;">
+    <div class="row text-center">
+      <!-- General Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the General Election section. Learn about the representatives and policies that shape our country.">
+          <div class="card-body">
+            <h2 class="card-title">General Election</h2>
+            <p class="card-text">Learn about the representatives and policies that shape our country.</p>
+            <a href="general-election.html" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Presidential Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the Presidential Election section. Cast your vote to elect the next president of Ireland.">
+          <div class="card-body">
+            <h2 class="card-title">Presidential Election</h2>
+            <p class="card-text">Cast your vote to elect the next president of Ireland.</p>
+            <a href="presidential-election.html" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mayor Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the Mayor Election section. Choose your city’s next leader for local governance.">
+          <div class="card-body">
+            <h2 class="card-title">Mayor Election</h2>
+            <p class="card-text">Choose your city’s next leader for local governance.</p>
+            <a href="mayor-election.html" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2024 Ireland Voting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialize the SpeechSynthesis API
+    const synth = window.speechSynthesis;
+
+    // Function to speak the text
+    function speakText(text) {
+      if (synth.speaking) {
+        synth.cancel(); // Stop any ongoing speech
+      }
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-IE'; // Set to Irish English
+      utterance.rate = 1; // Adjust speaking rate
+      utterance.pitch = 1; // Adjust pitch
+      synth.speak(utterance);
+    }
+
+    // Add event listeners to hover items
+    document.querySelectorAll('.hover-item').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const text = item.getAttribute('data-voice');
+        if (text) {
+          speakText(text);
+        }
+      });
+
+      item.addEventListener('mouseleave', () => {
+        synth.cancel(); // Stop speech when mouse leaves the item
+      });
+    });
+  </script>
+</body>
+</html>

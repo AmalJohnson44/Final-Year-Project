@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Candidate List</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const county = urlParams.get('county');
+      
+      const candidates = {
+        "carlow-kilkenny": [
+          { name: "Sean Byrne", party: "Fianna Fáil", platform: "Tax Cuts and Technology Development" },
+          { name: "Clodagh O'Doherty", party: "Social Democrats", platform: "Education and Social Reform" },
+          { name: "Padraig Keane", party: "Labour Party", platform: "Health Services and Infrastructure" }
+        ],
+        "cavan": [
+          { name: "Eoin MacCarthy", party: "Fine Gael", platform: "Local Job Growth and Healthcare" },
+          { name: "Niamh Kavanagh", party: "Sinn Féin", platform: "Economic Growth and Education" },
+          { name: "Roisin Donnelly", party: "Green Party", platform: "Environmental Reforms and Transport" }
+        ],
+        "clare": [
+          { name: "Maeve Murphy", party: "Fianna Fáil", platform: "Agricultural Development and Tourism" },
+          { name: "Cathal O'Neill", party: "Fine Gael", platform: "Education and Infrastructure" },
+          { name: "Orlaith Fitzgerald", party: "Green Party", platform: "Green Energy and Economic Stability" }
+        ],
+        "cork-east": [
+          { name: "Niall O'Brien", party: "Fianna Fáil", platform: "Job Creation and Infrastructure" },
+          { name: "Aisling O'Mahony", party: "Sinn Féin", platform: "Healthcare and Education" },
+          { name: "Fergal Collins", party: "Labour Party", platform: "Tax Cuts and Technology" }
+        ],
+        "donegal": [
+          { name: "Tadhg MacAuley", party: "Fianna Fáil", platform: "Tourism and Local Economy" },
+          { name: "Brigid MacManus", party: "Fine Gael", platform: "Health and Infrastructure" },
+          { name: "Ciarán O'Hara", party: "Green Party", platform: "Green Energy and Transport" }
+        ],
+        "dublin-bn": [
+          { name: "Declan Ryan", party: "Fine Gael", platform: "Economic Growth and Healthcare" },
+          { name: "Siobhan Kennedy", party: "Sinn Féin", platform: "Education and Tax Reforms" },
+          { name: "Oran McCarthy", party: "Green Party", platform: "Environmental Sustainability" }
+        ],
+        "galway-e": [
+          { name: "Tara Fahy", party: "Fianna Fáil", platform: "Tourism and Job Creation" },
+          { name: "Dónal O'Sullivan", party: "Sinn Féin", platform: "Healthcare and Education" },
+          { name: "Cillian O'Connor", party: "Green Party", platform: "Green Energy and Environment" }
+        ],
+        "kerry": [
+          { name: "Micheál O'Donoghue", party: "Fianna Fáil", platform: "Job Creation and Agriculture" },
+          { name: "Ailbhe Ní Ghríofa", party: "Sinn Féin", platform: "Education and Health" },
+          { name: "Caitríona McSweeney", party: "Green Party", platform: "Environmental Sustainability" }
+        ],
+        "kildare-n": [
+          { name: "Brendan Mulcahy", party: "Fianna Fáil", platform: "Economic Growth and Infrastructure" },
+          { name: "Siún Ni Fheargail", party: "Sinn Féin", platform: "Education and Health" },
+          { name: "Ruairí O'Sullivan", party: "Green Party", platform: "Climate Action and Sustainability" }
+        ],
+        "tipperary": [
+          { name: "Amal Johnson", party: "Fianna Fáil", platform: "Economic Growth, Free Health care and Free Transport " },
+          { name: "Siún Ni Fheargail", party: "Sinn Féin", platform: "Education and Health" },
+          { name: "Ruairí O'Sullivan", party: "Green Party", platform: "Climate Action and Sustainability" }
+        ],
+        // Add similar candidate details for the rest of the counties
+        // ...
+      };
+
+      let candidateList = candidates[county] || [];
+      const candidateContainer = document.getElementById('candidate-list');
+      candidateContainer.innerHTML = `<h2>Candidates for ${county.charAt(0).toUpperCase() + county.slice(1)}</h2>`;
+
+      candidateList.forEach((candidate) => {
+        const candidateHTML = `
+          <div class="col-md-4">
+            <h3>${candidate.name}</h3>
+            <p><strong>Party:</strong> ${candidate.party}</p>
+            <p><strong>Platform:</strong> ${candidate.platform}</p>
+          </div>`;
+        candidateContainer.innerHTML += candidateHTML;
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Voting System Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Ireland Votes</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Candidate Section -->
+  <div class="product-section">
+    <div class="container">
+      <div class="row" id="candidate-list">
+        <!-- Candidate details will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2024 Ireland Voting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>

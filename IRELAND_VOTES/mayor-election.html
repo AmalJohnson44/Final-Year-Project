@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Mayoral Election 2025</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Mayoral Election Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" aria-label="Navigate to homepage">Ireland Votes</a>
+      <div class="ms-auto">
+        <a href="logout.html" class="btn btn-secondary btn-sm hover-item" aria-label="Logout from your account" data-voice="You are about to log out. Make sure to save your work.">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-3 fw-bold">Welcome to Mayoral Election 2025</h1>
+          <p class="mb-4">Your voice matters! Participate in shaping the future of your city by casting your vote in the Mayoral Election.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voter Information Section -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <h2 class="fw-bold">Voter Information</h2>
+        <div id="voterDetails">
+          <!-- Voter details will be dynamically loaded here -->
+          <p><strong>Name:</strong> <span id="voterName">Loading...</span></p>
+          <p><strong>Constituency:</strong> <span id="voterConstituency">Loading...</span></p>
+          <p><strong>Voter ID:</strong> <span id="voterID">Loading...</span></p>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="images/mayoral-voting-illustration.png" alt="Voting illustration" style="max-width:100%;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Candidate Information Section -->
+  <div class="container my-5">
+    <h2 class="fw-bold text-center">Candidate Information</h2>
+    <form id="voteForm">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group">
+            <!-- Dynamic Candidate List -->
+            <script>
+              const mayoralCandidates = [
+                { id: "candidate1", name: "Candidate A", img: "images/candidateA.jpg" },
+                { id: "candidate2", name: "Candidate B", img: "images/candidateB.jpg" },
+                { id: "candidate3", name: "Candidate C", img: "images/candidateC.jpg" },
+                { id: "candidate4", name: "Candidate D", img: "images/candidateD.jpg" },
+                { id: "candidate5", name: "Candidate E", img: "images/candidateE.jpg" },
+              ];
+              document.write(
+                mayoralCandidates.map(candidate => `
+                  <li class="list-group-item d-flex align-items-center">
+                    <img src="${candidate.img}" alt="${candidate.name}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+                    <span class="me-auto">${candidate.name}</span>
+                    <input type="checkbox" id="${candidate.id}" name="votes" value="${candidate.name}" class="form-check-input me-3">
+                    <label for="priority_${candidate.id}" class="me-2">Priority:</label>
+                    <input type="number" id="priority_${candidate.id}" name="priority_${candidate.id}" min="1" max="5" class="form-control" style="width: 80px;" disabled>
+                  </li>
+                `).join('')
+              );
+            </script>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success">Submit Your Vote</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2024 Ireland Voting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Fetch voter details from the database (mocked as an example)
+    document.addEventListener("DOMContentLoaded", function() {
+      // Simulating database fetch with a static object
+      const voterData = {
+        name: "Jane Doe",
+        constituency: "Dublin City",
+        voterID: "67890DEF"
+      };
+
+      // Display voter details
+      document.getElementById("voterName").textContent = voterData.name;
+      document.getElementById("voterConstituency").textContent = voterData.constituency;
+      document.getElementById("voterID").textContent = voterData.voterID;
+
+      // Enable priority input when a candidate is selected
+      document.querySelectorAll('input[name="votes"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const priorityInput = document.getElementById(priority_${this.id});
+          if (this.checked) {
+            priorityInput.disabled = false;
+          } else {
+            priorityInput.disabled = true;
+            priorityInput.value = "";
+          }
+        });
+      });
+    });
+
+    // Handle vote submission
+    document.getElementById("voteForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const selectedCandidates = Array.from(document.querySelectorAll('input[name="votes"]:checked')).map(input => {
+        const priority = document.getElementById(priority_${input.id}).value;
+        return { candidate: input.value, priority: priority || null };
+      });
+
+      if (selectedCandidates.length === 0) {
+        alert("Please select at least one candidate to vote for.");
+        return;
+      }
+
+      console.log("Vote submitted:", selectedCandidates);
+      alert("Thank you for voting! Your vote has been recorded.");
+    });
+  </script>
+</body>
+</html>
