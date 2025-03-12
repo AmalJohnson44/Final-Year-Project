@@ -9,6 +9,7 @@
   <!-- Bootstrap CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+<<<<<<< HEAD
 
   
 </head>
@@ -19,26 +20,55 @@
       <a class="navbar-brand" href="index.html">Ireland Votes</a>
       <div class="ms-auto">
         <a href="admin-login.html" class="btn btn-primary">Admin Login</a>
+=======
+</head>
+  
+<body>
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Voting System Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#" data-voice="Ireland Votes homepage">Ireland Votes</a>
+      <div class="ms-auto pe-3 d-flex gap-3">
+        <a href="admin-login.html" class="btn btn-primary btn-lg" data-voice="Admin login page">Admin Login</a>
+>>>>>>> 3f4476a (Initial commit)
       </div>
     </div>
   </nav>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3f4476a (Initial commit)
   <!-- Hero Section -->
   <div class="hero">
     <div class="container">
       <div class="row justify-content-between">
         <div class="col-lg-5">
           <div class="intro-excerpt">
+<<<<<<< HEAD
             <h1>Online Voting System for Ireland</h1>
             <p class="mb-4">Voting is one of the most powerful tools citizens have to shape the future of their country. It ensures that every voice is heard, promoting equality, accountability, and progress. By participating in elections, you contribute to selecting leaders who represent your values and priorities, driving policies that address critical issues like healthcare, education, and economic growth. A strong voter turnout leads to better governance, fostering transparency and building a nation that thrives on justice and opportunity. Your vote is not just a right; it’s a responsibility to help create a brighter, more inclusive future for all.</p>
             <p><a href="register.html" class="btn btn-primary">Register Now</a></p>
             <a href="login.html" class="btn btn-primary btn-lg">Login</a>
+=======
+            <h1 data-voice="Online Voting System for Ireland">Online Voting System for Ireland</h1>
+            <p class="mb-4" data-voice="Voting is one of the most powerful tools citizens have to shape the future of their country. It ensures that every voice is heard, promoting equality, accountability, and progress. By participating in elections, you contribute to selecting leaders who represent your values and priorities, driving policies that address critical issues like healthcare, education, and economic growth. A strong voter turnout leads to better governance, fostering transparency and building a nation that thrives on justice and opportunity. Your vote is not just a right; it’s a responsibility to help create a brighter, more inclusive future for all.">
+              Voting is one of the most powerful tools citizens have to shape the future of their country. It ensures that every voice is heard, promoting equality, accountability, and progress. By participating in elections, you contribute to selecting leaders who represent your values and priorities, driving policies that address critical issues like healthcare, education, and economic growth. A strong voter turnout leads to better governance, fostering transparency and building a nation that thrives on justice and opportunity. Your vote is not just a right; it’s a responsibility to help create a brighter, more inclusive future for all.
+            </p>
+            <p>
+              <a href="register.html" class="btn btn-primary btn-lg" data-voice="Voter registration page">Register Now</a>
+              <a href="login.html" class="btn btn-primary btn-lg" data-voice="Voter login page">Login</a>
+            </p>
+>>>>>>> 3f4476a (Initial commit)
           </div>
         </div>
         <div class="col-lg-7">
           <div class="hero-img-wrap">
+<<<<<<< HEAD
             <img src="images/roi_flag_map.png" style="max-width:100%;" alt="Voting Image">
+=======
+            <img src="images/roi_flag_map.png" style="max-width:50%;" alt="Map of Ireland">
+>>>>>>> 3f4476a (Initial commit)
           </div>
         </div>
       </div>
@@ -52,8 +82,64 @@
     </div>
   </footer>
 
+<<<<<<< HEAD
   <!-- Scripts -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/custom.js"></script>
 </body>
 </html>
+=======
+  <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle text-center mb-3">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+
+    // Toggle Voice Over
+    document.getElementById('voiceOverToggle').addEventListener('click', function() {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        // Read the main heading and first paragraph when voice-over is enabled
+        const heading = document.querySelector('h1').getAttribute('data-voice');
+        const paragraph = document.querySelector('.intro-excerpt p').getAttribute('data-voice');
+        speak(`${heading}. ${paragraph}`);
+      } else {
+        synth.cancel();
+      }
+    });
+
+    // Add event listeners for interactive elements
+    document.querySelectorAll('[data-voice]').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        const text = this.getAttribute('data-voice');
+        speak(text);
+      });
+      
+      element.addEventListener('mouseout', function() {
+        synth.cancel();
+      });
+    });
+
+    // Add event listener for the voting image
+    document.querySelector('.hero-img-wrap img').addEventListener('mouseover', function() {
+      speak(this.getAttribute('data-voice'));
+    });
+  </script>
+</body>
+</html>
+>>>>>>> 3f4476a (Initial commit)
