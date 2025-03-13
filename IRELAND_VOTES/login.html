@@ -9,14 +9,101 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
+<<<<<<< HEAD
 
+=======
+  <style>
+    body {
+      background-color: #2f4f37; /* Green background */
+      color: white;
+    }
+
+    .navbar {
+      background: none; /* Transparent navigation */
+    }
+
+    .navbar .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: row; /* Side-by-side layout for form and map */
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      gap: 30px; /* Space between form and map */
+    }
+
+    .login-form {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-form h2 {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .login-form label {
+      color: white;
+    }
+
+  
+
+    .btn-primary:hover {
+      background-color: #f57f17;
+    }
+
+    /* Styles for the camera section */
+    .camera-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .camera {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; /* Prevent elements from overflowing */
+    }
+
+    video, canvas {
+      border: 2px solid white;
+      border-radius: 10px;
+      max-width: 100%; /* Restrict width to fit inside the container */
+      height: auto;
+      margin: 10px 0;
+    }
+
+    /* Voice Over Toggle Button */
+    .voice-over-toggle {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+>>>>>>> 3f4476a (Initial commit)
 </head>
 
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-md">
     <div class="container">
+<<<<<<< HEAD
       <a class="navbar-brand" href="index.html">Ireland Votes</a>
+=======
+      <a class="navbar-brand" href="index.html" data-voice="Ireland Votes homepage">Ireland Votes</a>
+>>>>>>> 3f4476a (Initial commit)
     </div>
   </nav>
 
@@ -24,22 +111,37 @@
   <div class="hero">
     <!-- Login Form -->
     <div class="login-form">
+<<<<<<< HEAD
       <h2>User Login</h2>
       <form action="process-login.php" method="POST" enctype="multipart/form-data">
         <!-- Email -->
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+=======
+      <h2 data-voice="User Login">User Login</h2>
+      <form action="process-login.php" method="POST" enctype="multipart/form-data">
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label" data-voice="Email Address">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required data-voice="Enter your email address">
+>>>>>>> 3f4476a (Initial commit)
         </div>
 
         <!-- Password -->
         <div class="mb-3">
+<<<<<<< HEAD
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+=======
+          <label for="password" class="form-label" data-voice="Password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required data-voice="Enter your password">
+>>>>>>> 3f4476a (Initial commit)
         </div>
 
         <!-- Face Authentication Section -->
         <div class="camera-section">
+<<<<<<< HEAD
           <h4>Face Authentication</h4>
           <div class="camera">
             <video id="video" autoplay></video>
@@ -50,12 +152,28 @@
             </div>
             <button type="button" class="btn btn-primary mt-3" id="capture">Capture Photo</button>
             <button type="button" class="btn btn-secondary mt-3" id="retake" style="display: none;">Retake Photo</button>
+=======
+          <h4 data-voice="Face Authentication">Face Authentication</h4>
+          <div class="camera">
+            <video id="video" autoplay data-voice="Camera feed for face authentication"></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="photo-preview" style="display: none;">
+              <p data-voice="Captured Photo">Captured Photo:</p>
+              <img id="captured-photo" alt="Captured Image" />
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" id="capture" data-voice="Capture Photo">Capture Photo</button>
+            <button type="button" class="btn btn-primary btn-lg" id="retake" style="display: none;" data-voice="Retake Photo">Retake Photo</button>
+>>>>>>> 3f4476a (Initial commit)
             <input type="hidden" id="photo" name="photo" />
           </div>
         </div>
 
         <!-- Login Button -->
+<<<<<<< HEAD
         <button type="submit" class="btn btn-primary w-100 mt-4">Login</button>
+=======
+        <button type="submit" class="btn btn-primary btn-lg" data-voice="Login">Login</button>
+>>>>>>> 3f4476a (Initial commit)
       </form>
     </div>
 
@@ -65,8 +183,56 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- JavaScript -->
   <script>
+=======
+  <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+
+    // Toggle Voice Over
+    document.getElementById('voiceOverToggle').addEventListener('click', function() {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        // Read the main heading when voice-over is enabled
+        const heading = document.querySelector('.login-form h2').getAttribute('data-voice');
+        speak(heading);
+      } else {
+        synth.cancel();
+      }
+    });
+
+    // Add event listeners for interactive elements
+    document.querySelectorAll('[data-voice]').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        const text = this.getAttribute('data-voice');
+        speak(text);
+      });
+
+      element.addEventListener('mouseout', function() {
+        synth.cancel();
+      });
+    });
+
+    // Camera Functionality
+>>>>>>> 3f4476a (Initial commit)
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
     const photoInput = document.getElementById("photo");
@@ -103,8 +269,13 @@
 
       // Display the captured image with the same size as the video
       capturedPhoto.src = photoData;
+<<<<<<< HEAD
       capturedPhoto.style.width = ${video.offsetWidth}px; // Match video width
       capturedPhoto.style.height = ${video.offsetHeight}px; // Match video height
+=======
+      capturedPhoto.style.width = `${video.offsetWidth}px`; // Match video width
+      capturedPhoto.style.height = `${video.offsetHeight}px`; // Match video height
+>>>>>>> 3f4476a (Initial commit)
 
       // Hide the video and show the captured image
       video.style.display = "none";

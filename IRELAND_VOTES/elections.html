@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Dashboard - Current Election</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="User Dashboard Navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#" aria-label="Navigate to homepage" data-voice="Ireland Votes homepage">Ireland Votes</a>
+      <div class="ms-auto">
+        <a href="logout.html" class="btn btn-primary btn-lg" aria-label="Logout from your account" data-voice="You are about to log out. Make sure to save your work.">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <div class="intro-excerpt">
+            <h1 class="display-3 fw-bold" data-voice="Current Election">Current Election</h1>
+            <p class="mb-4" aria-describedby="motto-description" data-voice="Shaping the Future Together: Secure, Fair, and Accessible Voting for All">"Shaping the Future Together: Secure, Fair, and Accessible Voting for All"</p>
+            <p class="mb-4" id="motto-description" data-voice="Online elections bring democracy closer to everyone, offering a secure, transparent, and convenient way to make your voice heard. By embracing technology, we ensure that every vote counts, empowering citizens to participate in shaping their future. Together, we can build a stronger, more inclusive society where everyone has the power to make a difference.">
+              "Online elections bring democracy closer to everyone, offering a secure, transparent, and convenient way to make your voice heard. By embracing technology, we ensure that every vote counts, empowering citizens to participate in shaping their future. Together, we can build a stronger, more inclusive society where everyone has the power to make a difference."
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="hero-img-wrap text-center">
+            <img src="images/roi_flag_map.png" style="max-width:100%;" alt="Map of Ireland depicting election regions" data-voice="Map of Ireland">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Election Sections -->
+  <div class="container my-5" style="color: black;">
+    <div class="row text-center">
+      <!-- General Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the General Election section. Learn about the representatives and policies that shape our country.">
+          <div class="card-body">
+            <h2 class="card-title" data-voice="General Election">General Election</h2>
+            <p class="card-text" data-voice="Learn about the representatives and policies that shape our country.">Learn about the representatives and policies that shape our country.</p>
+            <a href="general-election.html" class="btn btn-primary" data-voice="View Details for General Election">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Presidential Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the Presidential Election section. Cast your vote to elect the next president of Ireland.">
+          <div class="card-body">
+            <h2 class="card-title" data-voice="Presidential Election">Presidential Election</h2>
+            <p class="card-text" data-voice="Cast your vote to elect the next president of Ireland.">Cast your vote to elect the next president of Ireland.</p>
+            <a href="presidential-election.html" class="btn btn-primary" data-voice="View Details for Presidential Election">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mayor Election -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 border-primary hover-item" data-voice="This is the Mayor Election section. Choose your city’s next leader for local governance.">
+          <div class="card-body">
+            <h2 class="card-title" data-voice="Mayor Election">Mayor Election</h2>
+            <p class="card-text" data-voice="Choose your city’s next leader for local governance.">Choose your city’s next leader for local governance.</p>
+            <a href="mayoral-election.html" class="btn btn-primary" data-voice="View Details for Mayor Election">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2024 Ireland Voting System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle text-center mb-3">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+
+    // Toggle Voice Over
+    document.getElementById('voiceOverToggle').addEventListener('click', function() {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        // Read the main heading and motto when voice-over is enabled
+        const heading = document.querySelector('.hero h1').getAttribute('data-voice');
+        const motto = document.querySelector('.hero p').getAttribute('data-voice');
+        speak(`${heading}. ${motto}`);
+      } else {
+        synth.cancel();
+      }
+    });
+
+    // Add event listeners for interactive elements
+    document.querySelectorAll('[data-voice]').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        const text = this.getAttribute('data-voice');
+        speak(text);
+      });
+
+      element.addEventListener('mouseout', function() {
+        synth.cancel();
+      });
+    });
+  </script>
+</body>
+</html>
