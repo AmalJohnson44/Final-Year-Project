@@ -14,7 +14,11 @@
   <!-- Navigation -->
   <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="General Election Navigation">
     <div class="container">
+<<<<<<< HEAD
       <a class="navbar-brand" href="index.html" aria-label="Navigate to homepage">Ireland Votes</a>
+=======
+      <a class="navbar-brand" href="index.html" aria-label="Navigate to homepage" data-voice="Navigate to homepage">Ireland Votes</a>
+>>>>>>> 3f4476a (Initial commit)
       <div class="ms-auto">
         <a href="logout.html" class="btn btn-secondary btn-sm hover-item" aria-label="Logout from your account" data-voice="You are about to log out. Make sure to save your work.">Logout</a>
       </div>
@@ -26,8 +30,13 @@
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
+<<<<<<< HEAD
           <h1 class="display-3 fw-bold">Welcome to General Election 2025</h1>
           <p class="mb-4">Your voice matters! Participate in shaping the future of Ireland by casting your vote in the General Election.</p>
+=======
+          <h1 class="display-3 fw-bold" data-voice="Welcome to General Election 2025">Welcome to General Election 2025</h1>
+          <p class="mb-4" data-voice="Your voice matters! Participate in shaping the future of Ireland by casting your vote in the General Election.">Your voice matters! Participate in shaping the future of Ireland by casting your vote in the General Election.</p>
+>>>>>>> 3f4476a (Initial commit)
         </div>
       </div>
     </div>
@@ -37,6 +46,7 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-lg-6 mb-4">
+<<<<<<< HEAD
         <h2 class="fw-bold">Voter Information</h2>
         <div id="voterDetails">
           <!-- Voter details will be dynamically loaded here -->
@@ -47,12 +57,25 @@
       </div>
       <div class="col-lg-6 text-center">
         <img src="images/roi_flag_map.png" alt="Voting illustration" style="max-width:100%;">
+=======
+        <h2 class="fw-bold" data-voice="Voter Information">Voter Information</h2>
+        <div id="voterDetails">
+          <!-- Voter details will be dynamically loaded here -->
+          <p data-voice="Voter Name"><strong>Name:</strong> <span id="voterName">Loading...</span></p>
+          <p data-voice="Voter Constituency"><strong>Constituency:</strong> <span id="voterConstituency">Loading...</span></p>
+          <p data-voice="Voter ID"><strong>Voter ID:</strong> <span id="voterID">Loading...</span></p>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="images/roi_flag_map.png" alt="Map of Ireland" style="max-width:30%;">
+>>>>>>> 3f4476a (Initial commit)
       </div>
     </div>
   </div>
 
   <!-- Candidate Information Section -->
   <div class="container my-5">
+<<<<<<< HEAD
     <h2 class="fw-bold text-center">Candidate Information</h2>
     <form id="voteForm">
       <div class="row">
@@ -63,6 +86,18 @@
               const candidates = [
                 { id: "candidate1", name: "Candidate 1", img: "images/.jpg" },
                 { id: "candidate2", name: "Candidate 2", img: "images/roi_flag_map.png" },
+=======
+    <h2 class="fw-bold text-center" data-voice="Candidate Information">Candidate Information</h2>
+    <form id="voteForm">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group" id="candidateList">
+            <!-- Dynamic Candidate List -->
+            <script>
+              const candidates = [
+                { id: "candidate1", name: "Candidate 1", img: "images/img-grid-1.jpg" },
+                { id: "candidate2", name: "Candidate 2", img: "images/img-grid-1.jpg" },
+>>>>>>> 3f4476a (Initial commit)
                 { id: "candidate3", name: "Candidate 3", img: "images/img-grid-1.jpg" },
                 { id: "candidate4", name: "Candidate 4", img: "images/img-grid-1.jpg" },
                 { id: "candidate5", name: "Candidate 5", img: "images/img-grid-1.jpg" },
@@ -74,12 +109,21 @@
               ];
               document.write(
                 candidates.map(candidate => `
+<<<<<<< HEAD
                   <li class="list-group-item d-flex align-items-center">
                     <img src="${candidate.img}" alt="${candidate.name}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
                     <span class="me-auto">${candidate.name}</span>
                     <input type="checkbox" id="${candidate.id}" name="votes" value="${candidate.name}" class="form-check-input me-3">
                     <label for="priority_${candidate.id}" class="me-2">Priority:</label>
                     <input type="number" id="priority_${candidate.id}" name="priority_${candidate.id}" min="1" max="10" class="form-control" style="width: 80px;" disabled>
+=======
+                  <li class="list-group-item d-flex align-items-center" data-voice="${candidate.name}">
+                    <img src="${candidate.img}" alt="${candidate.name}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+                    <span class="me-auto">${candidate.name}</span>
+                    <input type="checkbox" id="${candidate.id}" name="votes" value="${candidate.name}" class="form-check-input me-3">
+                    <label for="priority_${candidate.id}" class="me-2" data-voice="Set priority for ${candidate.name}">Priority:</label>
+                    <input type="number" id="priority_${candidate.id}" name="priority_${candidate.id}" min="1" max="10" class="form-control priority-input" style="width: 80px;" disabled>
+>>>>>>> 3f4476a (Initial commit)
                   </li>
                 `).join('')
               );
@@ -88,7 +132,11 @@
         </div>
       </div>
       <div class="text-center mt-4">
+<<<<<<< HEAD
         <button type="submit" class="btn btn-success">Submit Your Vote</button>
+=======
+        <button type="submit" class="btn btn-success" data-voice="Submit Your Vote">Submit Your Vote</button>
+>>>>>>> 3f4476a (Initial commit)
       </div>
     </form>
   </div>
@@ -100,9 +148,103 @@
     </div>
   </footer>
 
+<<<<<<< HEAD
   <!-- Scripts -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>
+=======
+  <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+
+    // Toggle Voice Over
+    document.getElementById('voiceOverToggle').addEventListener('click', function() {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        // Read the introduction when voice-over is turned on
+        const introText = document.querySelector('.hero h1').getAttribute('data-voice') + ". " +
+                          document.querySelector('.hero p').getAttribute('data-voice');
+        speak(introText);
+      } else {
+        synth.cancel(); // Stop speech when voice-over is turned off
+      }
+    });
+
+    // Add event listeners for voice over to static elements
+    document.querySelectorAll('[data-voice]').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        speak(this.getAttribute('data-voice'));
+      });
+      element.addEventListener('mouseout', function() {
+        synth.cancel(); // Stop speech when cursor leaves the element
+      });
+    });
+
+    // Add event listeners for dynamically generated candidate elements
+    document.getElementById('candidateList').addEventListener('mouseover', function(event) {
+      if (event.target.classList.contains('list-group-item')) {
+        const candidateName = event.target.getAttribute('data-voice');
+        speak(candidateName);
+      }
+    });
+
+    // Add voice-over for priority selection
+    document.querySelectorAll('.priority-input').forEach(input => {
+      // When the priority input is focused
+      input.addEventListener('focus', function() {
+        const candidateName = this.closest('li').querySelector('span').textContent;
+        speak(`Set priority for ${candidateName}.`);
+      });
+
+      // When the priority value is changed
+      input.addEventListener('change', function() {
+        const candidateName = this.closest('li').querySelector('span').textContent;
+        const priorityValue = this.value;
+        if (priorityValue) {
+          speak(`Priority for ${candidateName} set to ${priorityValue}.`);
+        }
+      });
+    });
+
+    // Ensure unique priority numbers
+    document.querySelectorAll('.priority-input').forEach(input => {
+      input.addEventListener('change', function() {
+        const selectedPriority = this.value;
+        const allPriorityInputs = document.querySelectorAll('.priority-input');
+        let isDuplicate = false;
+
+        allPriorityInputs.forEach(otherInput => {
+          if (otherInput !== this && otherInput.value === selectedPriority && selectedPriority !== "") {
+            isDuplicate = true;
+          }
+        });
+
+        if (isDuplicate) {
+          alert("Priority numbers must be unique. Please choose a different number.");
+          this.value = ""; // Clear the duplicate value
+          speak("Priority number already selected. Please choose a different number.");
+        }
+      });
+    });
+
+>>>>>>> 3f4476a (Initial commit)
     // Fetch voter details from the database (mocked as an example)
     document.addEventListener("DOMContentLoaded", function() {
       // Simulating database fetch with a static object
@@ -120,7 +262,11 @@
       // Enable priority input when a candidate is selected
       document.querySelectorAll('input[name="votes"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
+<<<<<<< HEAD
           const priorityInput = document.getElementById(priority_${this.id});
+=======
+          const priorityInput = document.getElementById(`priority_${this.id}`);
+>>>>>>> 3f4476a (Initial commit)
           if (this.checked) {
             priorityInput.disabled = false;
           } else {
@@ -135,17 +281,39 @@
     document.getElementById("voteForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const selectedCandidates = Array.from(document.querySelectorAll('input[name="votes"]:checked')).map(input => {
+<<<<<<< HEAD
         const priority = document.getElementById(priority_${input.id}).value;
+=======
+        const priority = document.getElementById(`priority_${input.id}`).value;
+>>>>>>> 3f4476a (Initial commit)
         return { candidate: input.value, priority: priority || null };
       });
 
       if (selectedCandidates.length === 0) {
         alert("Please select at least one candidate to vote for.");
+<<<<<<< HEAD
+=======
+        speak("Please select at least one candidate to vote for.");
+        return;
+      }
+
+      // Check for duplicate priorities
+      const priorities = selectedCandidates.map(candidate => candidate.priority);
+      const hasDuplicates = new Set(priorities).size !== priorities.length;
+
+      if (hasDuplicates) {
+        alert("Priority numbers must be unique. Please correct the priorities before submitting.");
+        speak("Priority numbers must be unique. Please correct the priorities before submitting.");
+>>>>>>> 3f4476a (Initial commit)
         return;
       }
 
       console.log("Vote submitted:", selectedCandidates);
       alert("Thank you for voting! Your vote has been recorded.");
+<<<<<<< HEAD
+=======
+      speak("Thank you for voting! Your vote has been recorded.");
+>>>>>>> 3f4476a (Initial commit)
     });
   </script>
 </body>

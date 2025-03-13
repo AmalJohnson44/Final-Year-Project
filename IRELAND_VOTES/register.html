@@ -9,14 +9,118 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
+<<<<<<< HEAD
   
+=======
+  <style>
+    body {
+      background-color: #2f4f37; /* Green background */
+      color: white;
+    }
+
+    .navbar {
+      background: none; /* Transparent navigation */
+    }
+
+    .navbar .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: row; /* Arrange form and map side-by-side */
+      align-items: flex-start; /* Align items to the top */
+      justify-content: center;
+      gap: 30px; /* Space between form and map */
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .registration-form {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .registration-form h2 {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .registration-form label {
+      color: white;
+    }
+
+
+    .btn-primary:hover {
+      background-color: #f57f17;
+    }
+
+    footer {
+      background: #263f2a;
+      padding: 1rem 0;
+      text-align: center;
+      color: white;
+    }
+
+    /* Styles for the camera section */
+    .camera-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .camera {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    video, canvas {
+      border: 2px solid white;
+      border-radius: 10px;
+      max-width: 100%;
+      margin: 10px 0;
+    }
+
+    /* Map Styling */
+    .map-container {
+      max-width: 300px; /* Adjust maximum width for the container */
+      text-align: left; /* Align the map container to the left */
+      margin-left: 10; /* Align container to the screen's left edge */
+    }
+
+    .map-container img {
+      width: 180%; /* Adjust the map size (smaller size) */
+      height: auto; /* Maintain aspect ratio */
+      display: block; /* Ensure the map does not overflow */
+      margin: 0 auto; /* Center the map inside the container if needed */
+    }
+
+    /* Voice Over Toggle Button */
+    .voice-over-toggle {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+>>>>>>> 3f4476a (Initial commit)
 </head>
 
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-md">
     <div class="container">
+<<<<<<< HEAD
       <a class="navbar-brand" href="index.html">Ireland Votes</a>
+=======
+      <a class="navbar-brand" href="index.html" data-voice="Ireland Votes homepage">Ireland Votes</a>
+>>>>>>> 3f4476a (Initial commit)
     </div>
   </nav>
 
@@ -24,22 +128,37 @@
   <div class="hero">
     <!-- Registration Form -->
     <div class="registration-form">
+<<<<<<< HEAD
       <h2>Register to Vote</h2>
       <form action="confirm.php" method="POST" enctype="multipart/form-data">
         <!-- Name -->
         <div class="mb-3">
           <label for="name" class="form-label">Full Name</label>
           <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+=======
+      <h2 data-voice="Register to Vote">Register to Vote</h2>
+      <form action="confirm.php" method="POST" enctype="multipart/form-data">
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label" data-voice="Full Name">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required data-voice="Enter your full name">
+>>>>>>> 3f4476a (Initial commit)
         </div>
 
         <!-- Email -->
         <div class="mb-3">
+<<<<<<< HEAD
           <label for="email" class="form-label">Email Address</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+=======
+          <label for="email" class="form-label" data-voice="Email Address">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required data-voice="Enter your email address">
+>>>>>>> 3f4476a (Initial commit)
         </div>
 
         <!-- Date of Birth -->
         <div class="mb-3">
+<<<<<<< HEAD
           <label for="dob" class="form-label">Date of Birth</label>
           <input type="date" class="form-control" id="dob" name="dob" required>
         </div>
@@ -60,10 +179,21 @@
         <div class="mb-3">
           <label for="idProof" class="form-label">Upload ID Proof</label>
           <input type="file" class="form-control" id="idProof" name="idProof" required>
+=======
+          <label for="dob" class="form-label" data-voice="Date of Birth">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" required data-voice="Select your date of birth">
+        </div>
+
+        <!-- ID Proof -->
+        <div class="mb-3">
+          <label for="idProof" class="form-label" data-voice="Upload ID Proof">Upload ID Proof</label>
+          <input type="file" class="form-control" id="idProof" name="idProof" required data-voice="Upload your ID proof document">
+>>>>>>> 3f4476a (Initial commit)
         </div>
 
         <!-- Face Authentication Section -->
         <div class="camera-section">
+<<<<<<< HEAD
           <h4>Face Authentication</h4>
           <div class="camera">
             <video id="video" autoplay></video>
@@ -74,10 +204,23 @@
             </div>
             <button type="button" class="btn btn-primary mt-3" id="capture">Capture Photo</button>
             <button type="button" class="btn btn-secondary mt-3" id="retake" style="display: none;">Retake Photo</button>
+=======
+          <h4 data-voice="Face Authentication">Face Authentication</h4>
+          <div class="camera">
+            <video id="video" autoplay data-voice="Camera feed for face authentication"></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="photo-preview" style="display: none;">
+              <p data-voice="Captured Photo">Captured Photo:</p>
+              <img id="captured-photo" alt="Captured Image" />
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" id="capture" data-voice="Capture Photo">Capture Photo</button>
+            <button type="button" class="btn btn-primary btn-lg" id="retake" style="display: none;" data-voice="Retake Photo">Retake Photo</button>
+>>>>>>> 3f4476a (Initial commit)
             <input type="hidden" id="photo" name="photo" />
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Submit Registration -->
         <button type="submit" class="btn btn-primary w-100 mt-4">Complete Registration</button>
       </form>
@@ -90,6 +233,78 @@
 
   <!-- JavaScript -->
   <script>
+=======
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label" data-voice="Password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="8" data-voice="Enter your password">
+          <small>Password must be at least 8 characters long.</small>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label" data-voice="Confirm Password">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required data-voice="Re-enter your password">
+          <small id="passwordError" class="text-danger" style="display: none;">Passwords do not match!</small>
+        </div>
+
+        <!-- Submit Registration -->
+        <button type="submit" class="btn btn-primary btn-lg" data-voice="Complete Registration">Complete Registration</button>
+      </form>
+    </div>
+
+    <!-- Ireland Map -->
+    <div class="map-container">
+      <img src="images/roi_flag_map.png" alt="Ireland Map" data-voice="Map of Ireland">
+    </div>
+  </div>
+
+  <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+
+    // Toggle Voice Over
+    document.getElementById('voiceOverToggle').addEventListener('click', function() {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        // Read the main heading when voice-over is enabled
+        const heading = document.querySelector('.registration-form h2').getAttribute('data-voice');
+        speak(heading);
+      } else {
+        synth.cancel();
+      }
+    });
+
+    // Add event listeners for interactive elements
+    document.querySelectorAll('[data-voice]').forEach(element => {
+      element.addEventListener('mouseover', function() {
+        const text = this.getAttribute('data-voice');
+        speak(text);
+      });
+
+      element.addEventListener('mouseout', function() {
+        synth.cancel();
+      });
+    });
+
+    // Camera Functionality
+>>>>>>> 3f4476a (Initial commit)
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
     const photoInput = document.getElementById("photo");
@@ -97,7 +312,11 @@
     const retakeButton = document.getElementById("retake");
     const photoPreview = document.getElementById("photo-preview");
     const capturedPhoto = document.getElementById("captured-photo");
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 3f4476a (Initial commit)
     // Start the video stream
     navigator.mediaDevices
       .getUserMedia({ video: true })
@@ -108,6 +327,7 @@
         console.error("Error accessing the camera:", error);
         alert("Unable to access the camera. Please check your device settings.");
       });
+<<<<<<< HEAD
   
     // Capture photo
     captureButton.addEventListener("click", () => {
@@ -129,13 +349,40 @@
       capturedPhoto.style.width = ${video.offsetWidth}px; // Match video width
       capturedPhoto.style.height = ${video.offsetHeight}px; // Match video height
   
+=======
+
+    // Capture photo
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+
+      // Set canvas dimensions to match the video
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // Draw the video frame onto the canvas
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert the canvas content to Base64 and update the hidden input
+      const photoData = canvas.toDataURL("image/png");
+      photoInput.value = photoData; // Save photo to hidden input
+
+      // Display the captured image with the same size as the video
+      capturedPhoto.src = photoData;
+      capturedPhoto.style.width = `${video.offsetWidth}px`; // Match video width
+      capturedPhoto.style.height = `${video.offsetHeight}px`; // Match video height
+
+>>>>>>> 3f4476a (Initial commit)
       // Hide the video and show the captured image
       video.style.display = "none";
       photoPreview.style.display = "block";
       retakeButton.style.display = "inline-block";
       captureButton.style.display = "none";
     });
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 3f4476a (Initial commit)
     // Retake photo
     retakeButton.addEventListener("click", () => {
       // Reset the video and hide the preview
@@ -144,7 +391,26 @@
       retakeButton.style.display = "none";
       captureButton.style.display = "inline-block";
     });
+<<<<<<< HEAD
   </script>
   
+=======
+
+    // Password Validation
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', (e) => {
+      if (password.value !== confirmPassword.value) {
+        e.preventDefault(); // Prevent form submission
+        passwordError.style.display = 'block'; // Show error message
+      } else {
+        passwordError.style.display = 'none'; // Hide error message
+      }
+    });
+  </script>
+>>>>>>> 3f4476a (Initial commit)
 </body>
 </html>
