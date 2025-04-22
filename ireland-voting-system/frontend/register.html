@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - Ireland Voting System</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #2f4f37;
+      color: white;
+    }
+
+    .navbar {
+      background: none;
+    }
+
+    .navbar .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      gap: 30px;
+      min-height: 100vh;
+    }
+
+    .registration-form {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .registration-form h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .registration-form label {
+      color: white;
+    }
+
+    .btn-primary {
+      background-color: #f9a825;
+      border: none;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background-color: #f57f17;
+    }
+
+    .camera-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .camera {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    video, canvas {
+      border: 2px solid white;
+      border-radius: 10px;
+      max-width: 100%;
+      margin: 10px 0;
+    }
+
+    .map-container img {
+      width: 180%;
+      height: auto;
+      display: block;
+    }
+
+    .text-danger {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Ireland Votes</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="registration-form">
+      <h2>Register to Vote</h2>
+      <form id="registration-form">
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="dob" class="form-label">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" required>
+        </div>
+        <div class="mb-3">
+          <label for="idProof" class="form-label">Upload ID Proof</label>
+          <input type="file" class="form-control" id="idProof" name="idProof" 
+       accept=".jpg,.jpeg,.png,.pdf" required>
+        </div>
+
+        <div class="camera-section">
+          <h4>Face Authentication</h4>
+          <div class="camera">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="photo-preview" style="display: none;">
+              <p>Captured Photo:</p>
+              <img id="captured-photo" alt="Captured Image" />
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" style="background-color: #f57f17;" id="capture">Capture Photo</button>
+            <button type="button" class="btn btn-secondary mt-3" style="background-color: #f57f17;" id="retake" style="display: none;">Retake Photo</button>
+            <input type="hidden" id="photo" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" required minlength="8">
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmPassword" required>
+          <small id="passwordError" class="text-danger" style="display: none;">Passwords do not match!</small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="background-color: #f57f17;">Complete Registration</button>
+      </form>
+    </div>
+
+    <div class="map-container">
+      <img src="images/roi_flag_map.png" alt="Ireland Map">
+    </div>
+  </div>
+
+  <script>
+    // Webcam capture
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const photoInput = document.getElementById("photo");
+    const captureButton = document.getElementById("capture");
+    const retakeButton = document.getElementById("retake");
+    const photoPreview = document.getElementById("photo-preview");
+    const capturedPhoto = document.getElementById("captured-photo");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => { video.srcObject = stream; })
+      .catch((error) => {
+        console.error("Camera error:", error);
+        alert("Unable to access the camera.");
+        document.querySelector('.camera-section').style.display = 'none';
+      });
+
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const photoData = canvas.toDataURL("image/png");
+      photoInput.value = photoData;
+      capturedPhoto.src = photoData;
+      capturedPhoto.style.width = `${video.offsetWidth}px`;
+      capturedPhoto.style.height = `${video.offsetHeight}px`;
+      video.style.display = "none";
+      photoPreview.style.display = "block";
+      retakeButton.style.display = "inline-block";
+      captureButton.style.display = "none";
+    });
+
+    retakeButton.addEventListener("click", () => {
+      video.style.display = "block";
+      photoPreview.style.display = "none";
+      retakeButton.style.display = "none";
+      captureButton.style.display = "inline-block";
+      photoInput.value = "";
+    });
+
+    // Password validation
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const passwordError = document.getElementById("passwordError");
+
+    // Registration form handler
+    document.getElementById("registration-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (password.value !== confirmPassword.value) {
+    passwordError.style.display = "block";
+    return;
+  } else {
+    passwordError.style.display = "none";
+  }
+
+  // ✅ Defensive file check — put this before appending
+  const idProofInput = document.getElementById("idProof");
+  const idProofFile = idProofInput.files[0];
+
+  if (!idProofFile) {
+    alert("Please upload your ID proof.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", document.getElementById("name").value);
+  formData.append("email", document.getElementById("email").value);
+  formData.append("dob", document.getElementById("dob").value);
+  formData.append("password", password.value);
+  formData.append("photo", document.getElementById("photo").value);
+  formData.append("idProof", idProofFile); // ✅ now safely added
+
+  try {
+    const response = await fetch("http://localhost:3000/api/auth/register", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.msg || "Registration failed");
+
+    alert("✅ Registered successfully! You can now log in.");
+    window.location.href = "login.html";
+  } catch (err) {
+    console.error("Registration error:", err);
+    alert(err.message || "Registration failed.");
+  }
+});
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Election Results - Ireland Voting System</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1">Ireland Votes - Admin Panel</span>
+      <button onclick="logout()" class="btn btn-outline-light">Logout</button>
+    </div>
+  </nav>
+  <ul id="resultsList" class="list-group mt-4"></ul>
+
+  <div class="container mt-5">
+    <h2 class="text-center">Election Results Summary</h2>
+    <canvas id="resultsChart" class="my-5"></canvas>
+    <div id="resultTable"></div>
+  </div>
+
+  <footer class="text-center py-3 bg-light mt-4">
+    &copy; 2025 Ireland Voting System
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const list = document.getElementById("resultsList");
+  
+      try {
+        const res = await fetch("/api/blockchain-results");
+        const { results } = await res.json();
+  
+        if (!Array.isArray(results) || results.length === 0) {
+          list.innerHTML = `<li class="list-group-item text-danger">⚠️ No vote data available.</li>`;
+          return;
+        }
+  
+        list.innerHTML = results.map(r => `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong>${r.candidate}</strong>
+            <span class="badge bg-success rounded-pill">${r.votes} votes</span>
+          </li>
+        `).join('');
+      } catch (err) {
+        console.error("❌ Error fetching results:", err);
+        list.innerHTML = `<li class="list-group-item text-danger">❌ Error loading results.</li>`;
+      }
+    });
+  </script>
+  
+</body>
+</html>

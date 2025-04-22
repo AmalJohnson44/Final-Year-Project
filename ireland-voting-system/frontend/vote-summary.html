@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Vote Summary - Ireland Voting System</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #eaf7e9;
+      font-family: Arial, sans-serif;
+    }
+    .summary-header {
+      background-color: #2f4f37;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-header h4 {
+      margin: 0;
+    }
+    .summary-container {
+      padding: 2rem;
+    }
+    .summary-section {
+      margin-bottom: 2rem;
+    }
+    .summary-section h5 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+    .logout-btn {
+      background-color: #222;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+    .logout-btn:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="summary-header">
+    <h4>Ireland Votes - Summary</h4>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <div class="text-center my-4">
+    <img src="images/roi_flag_map.png" alt="Ireland Map" style="max-height: 120px;">
+    <h2 class="mt-3"><span role="img" aria-label="Ballot Box">🗳️</span> Your Vote Summary</h2>
+  </div>
+
+  <div class="summary-container">
+    <div class="summary-section">
+      <h5>Voter Details</h5>
+      <p><strong>Name:</strong> <span id="voterName">Loading...</span></p>
+      <p><strong>Constituency:</strong> <span id="voterConstituency">Loading...</span></p>
+      <p><strong>Voter ID:</strong> <span id="voterID">Loading...</span></p>
+    </div>
+
+    <div class="summary-section">
+      <h5>Selected Candidate(s)</h5>
+      <ul id="voteList" class="list-group"></ul>
+    </div>
+  </div>
+
+  <footer class="text-center py-3">
+    © 2025 Ireland Voting System
+  </footer>
+
+  <script>
+    const voteSummary = JSON.parse(sessionStorage.getItem("voteSummary"));
+
+    if (voteSummary && voteSummary.voter) {
+      document.getElementById("voterName").textContent = voteSummary.voter.name || "Not available";
+      document.getElementById("voterConstituency").textContent = voteSummary.voter.constituency || "Not available";
+      document.getElementById("voterID").textContent = voteSummary.voter.voterID || "Not available";
+
+      const list = document.getElementById("voteList");
+      if (Array.isArray(voteSummary.votes)) {
+        voteSummary.votes.forEach(vote => {
+          const li = document.createElement("li");
+          li.className = "list-group-item";
+          const party = vote.party ? ` - ${vote.party}` : "";
+          li.innerHTML = `<strong>${vote.candidate}</strong>${party} - Priority: ${vote.priority}`;
+          list.appendChild(li);
+        });
+      }
+    } else {
+      document.getElementById("voterName").textContent = "Name not found";
+      document.getElementById("voterConstituency").textContent = "Constituency not found";
+      document.getElementById("voterID").textContent = "ID not found";
+    }
+
+    function logout() {
+      sessionStorage.clear();
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

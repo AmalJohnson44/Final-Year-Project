@@ -1,0 +1,40 @@
+{
+  "name": "ireland-voting-system",
+  "version": "1.0.0",
+  "description": "Online Voting System",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.js"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "canvas": "^3.1.0",
+    "chai": "^4.5.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "face-api.js": "^0.22.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.6.0",
+    "open": "^10.1.1",
+    "qs": "^6.14.0",
+    "solc": "^0.8.29",
+    "web3": "^4.0.3"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.23.0",
+    "nodemon": "^3.1.0"
+  },
+  "main": "dev.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

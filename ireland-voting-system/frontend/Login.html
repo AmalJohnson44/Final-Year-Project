@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login - Ireland Voting System</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #2f4f37;
+      color: white;
+    }
+    .navbar { background: none; }
+    .navbar .navbar-brand { font-size: 1.5rem; font-weight: bold; color: white; }
+    .hero {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      gap: 30px;
+    }
+    .login-form {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .login-form h2 { color: white; font-weight: bold; text-align: center; }
+    .login-form label { color: white; }
+    .btn-primary {
+      background-color: #f9a825;
+      border: none;
+      font-weight: bold;
+    }
+    .btn-primary:hover { background-color: #f57f17; }
+    .camera-section { margin-top: 20px; text-align: center; }
+    .camera {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    video, canvas {
+      border: 2px solid white;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+    }
+    .voice-over-toggle { text-align: center; margin-top: 20px; margin-bottom: 20px; }
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .spinner-border {
+      width: 2rem;
+      height: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" data-voice="Ireland Votes homepage">Ireland Votes</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="login-form">
+      <h2 data-voice="User Login">User Login</h2>
+      <form id="face-login-form">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="camera-section">
+          <h4>Face Authentication</h4>
+          <div class="camera">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="photo-preview" style="display: none;">
+              <p>Captured Photo:</p>
+              <img id="captured-photo" alt="Captured Image" />
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" style="background-color: #f57f17;;" id="capture">Capture Photo</button>
+            <button type="button" class="btn btn-secondary mt-3" style="background-color: #f57f17;;" id="retake" style="display: none;">Retake Photo</button>
+            <input type="hidden" id="photo" required>
+          </div>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p>Authenticating...</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="background-color: #f57f17;" id="login-btn">Login</button>
+      </form>
+    </div>
+
+    <div class="map-container">
+      <img src="images/roi_flag_map.png" alt="Ireland Map">
+    </div>
+  </div>
+
+  <div class="voice-over-toggle text-center mb-3">
+    <button id="voiceOverToggle" class="btn btn-primary" style="  background-color: #f57f17;">Turn Voice Over On</button>
+  </div>
+
+  <script>
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel();
+        synth.speak(new SpeechSynthesisUtterance(text));
+      }
+    }
+
+    document.getElementById('voiceOverToggle').addEventListener('click', function () {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+    });
+
+    document.querySelectorAll('[data-voice]').forEach(el => {
+      el.addEventListener('mouseover', () => speak(el.getAttribute('data-voice')));
+      el.addEventListener('mouseout', () => synth.cancel());
+    });
+
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const photoInput = document.getElementById("photo");
+    const captureButton = document.getElementById("capture");
+    const retakeButton = document.getElementById("retake");
+    const photoPreview = document.getElementById("photo-preview");
+    const capturedPhoto = document.getElementById("captured-photo");
+
+    async function initCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+      } catch (err) {
+        console.error("Camera error:", err);
+        document.querySelector('.camera-section').style.display = 'none';
+      }
+    }
+
+    initCamera();
+
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const photoData = canvas.toDataURL("image/png");
+      photoInput.value = photoData;
+      capturedPhoto.src = photoData;
+      capturedPhoto.style.width = `${video.offsetWidth}px`;
+      capturedPhoto.style.height = `${video.offsetHeight}px`;
+      video.style.display = "none";
+      photoPreview.style.display = "block";
+      retakeButton.style.display = "inline-block";
+      captureButton.style.display = "none";
+    });
+
+    retakeButton.addEventListener("click", () => {
+      video.style.display = "block";
+      photoPreview.style.display = "none";
+      retakeButton.style.display = "none";
+      captureButton.style.display = "inline-block";
+      photoInput.value = "";
+    });
+
+    document.getElementById("face-login-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const photo = document.getElementById("photo").value;
+
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('login-btn').disabled = true;
+
+      try {
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, image: photo })
+        });
+
+        const text = await response.text();
+        console.log("🔎 Raw response:", text);
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (err) {
+          throw new Error("❌ Backend did not return valid JSON. Received:\n" + text);
+        }
+
+        if (!response.ok) throw new Error(data.msg || "Login failed");
+
+        // ✅ Store voter info
+        sessionStorage.setItem("voter", JSON.stringify({
+          name: data.name,
+          constituency: data.constituency,
+          voterID: data.voterID
+        }));
+       // window.location.href = "/generalelection.html";
+
+        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("voter", JSON.stringify(data.user));
+
+        speak("Login successful. Redirecting to voting page.");
+        setTimeout(() => window.location.href = "election.html", 1000);
+
+      } catch (err) {
+        console.error("Login error:", err);
+        alert(err.message || "Login failed. Please try again.");
+      } finally {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('login-btn').disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Online Voting System">
+  <title>Presidential Election 2025</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Ireland Votes</a>
+      <div class="ms-auto">
+        <a href="logout.html" class="btn btn-primary">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-3 fw-bold">Welcome to Presidential Election 2025</h1>
+          <p class="mb-4">Your voice matters! Participate in shaping the future of the country by casting your vote in the Presidential Election.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <h2 class="fw-bold">Voter Information</h2>
+        <div id="voterDetails">
+          <p><strong>Name:</strong> <span id="voterName">Loading...</span></p>
+          <p><strong>Constituency:</strong> <span id="voterConstituency">Loading...</span></p>
+          <p><strong>Voter ID:</strong> <span id="voterID">Loading...</span></p>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="images/roi_flag_map.png" alt="Voting illustration" style="max-width:35%;">
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="fw-bold text-center">Candidate Information</h2>
+    <form id="voteForm">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group" id="candidateList"></ul>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success" style="background-color: #f57f17;">Submit Your Vote</button>
+      </div>
+    </form>
+  </div>
+
+  <footer class="footer-section">
+    <div class="container">
+      <p class="text-center">© 2025 Ireland Voting System. All rights reserved.</p>
+      <!-- Voice Over Toggle Button -->
+  <div class="voice-over-toggle">
+    <button id="voiceOverToggle" class="btn btn-primary">Turn Voice Over On</button>
+  </div>
+
+    </div>
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 🗣️ Voice Over Functionality
+    let voiceOverEnabled = false;
+    const synth = window.speechSynthesis;
+  
+    function speak(text) {
+      if (voiceOverEnabled && synth && text) {
+        synth.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+      }
+    }
+  
+    // 🔘 Toggle Button (ensure one exists in your HTML with id="voiceOverToggle")
+    document.getElementById('voiceOverToggle')?.addEventListener('click', function () {
+      voiceOverEnabled = !voiceOverEnabled;
+      this.textContent = voiceOverEnabled ? 'Turn Voice Over Off' : 'Turn Voice Over On';
+      if (voiceOverEnabled) {
+        const intro = document.querySelector('.hero h1')?.getAttribute('data-voice') + ". " +
+                      document.querySelector('.hero p')?.getAttribute('data-voice');
+        speak(intro);
+      } else {
+        synth.cancel();
+      }
+    });
+  
+    // 🧠 Load Data on DOM Ready
+    document.addEventListener("DOMContentLoaded", async function () {
+      const voter = JSON.parse(sessionStorage.getItem('voter')) || {};
+      console.log("📦 Loaded voter from sessionStorage:", voter);
+  
+      document.getElementById("voterName").textContent = voter?.name || "Name not found";
+      document.getElementById("voterConstituency").textContent = voter?.constituency || "Constituency not found";
+      document.getElementById("voterID").textContent = voter?.voterID || "ID not found";
+  
+      const res = await fetch('/api/presidential-candidates');
+      const candidates = await res.json();
+      const list = document.getElementById("candidateList");
+  
+      list.innerHTML = candidates.map(c => `
+        <li class="list-group-item d-flex align-items-center" data-voice="${c.name}">
+          <img src="${c.image_url}" alt="${c.name}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+          <div class="me-auto">
+            <strong>${c.name}</strong><br>
+            <small class="party-name">${c.party}</small>
+          </div>
+          <input type="checkbox" id="candidate_${c.id}" name="votes" value="${c.name}" class="form-check-input me-3" data-party="${c.party}">
+          <label for="priority_candidate_${c.id}" class="me-2">Priority:</label>
+          <input type="number" id="priority_candidate_${c.id}" name="priority_candidate_${c.id}" min="1" max="10" class="form-control priority-input" style="width: 80px;" disabled>
+        </li>
+      `).join('');
+  
+      // 🎧 Hover to Speak
+      document.querySelectorAll('[data-voice]').forEach(el => {
+        el.addEventListener('mouseover', () => speak(el.getAttribute('data-voice')));
+        el.addEventListener('mouseout', () => synth.cancel());
+      });
+  
+      // 🎯 Selection logic with voice and priority input toggle
+      document.querySelectorAll('input[name="votes"]').forEach(cb => {
+        cb.addEventListener('change', function () {
+          const input = document.getElementById(`priority_${this.id}`);
+          if (this.checked) {
+            input.disabled = false;
+            speak(`${this.value} selected.`);
+          } else {
+            input.disabled = true;
+            input.value = "";
+          }
+        });
+      });
+  
+      // 📢 Priority input voice feedback
+      document.querySelectorAll('.priority-input').forEach(input => {
+        input.addEventListener('focus', function () {
+          const candidateName = this.closest('li')?.querySelector('strong')?.textContent;
+          speak(`Set priority for ${candidateName}.`);
+        });
+        input.addEventListener('change', function () {
+          const candidateName = this.closest('li')?.querySelector('strong')?.textContent;
+          const priorityValue = this.value;
+          if (priorityValue) speak(`Priority for ${candidateName} set to ${priorityValue}.`);
+        });
+      });
+    });
+  
+    // ✅ Form Submission with Validations
+    document.getElementById("voteForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+  
+      const selected = Array.from(document.querySelectorAll('input[name="votes"]:checked')).map(i => {
+        const priority = document.getElementById(`priority_${i.id}`).value;
+        return {
+          candidate: i.value,
+          priority: priority || null,
+          party: i.getAttribute('data-party') || null
+        };
+      });
+  
+      if (!selected.length) {
+        alert("Please select at least one candidate to vote for.");
+        speak("Please select at least one candidate to vote for.");
+        return;
+      }
+  
+      for (const vote of selected) {
+        if (!vote.priority || vote.priority.trim() === "") {
+          alert(`Please enter a priority for ${vote.candidate}.`);
+          speak(`Please enter a priority for ${vote.candidate}.`);
+          return;
+        }
+      }
+  
+      const priorities = selected.map(c => c.priority);
+      const hasDup = new Set(priorities).size !== priorities.length;
+      if (hasDup) {
+        alert("Priority numbers must be unique.");
+        speak("Priority numbers must be unique.");
+        return;
+      }
+  
+      // Store and redirect
+      sessionStorage.setItem("voteSummary", JSON.stringify({
+        voter: {
+          name: document.getElementById("voterName").textContent,
+          constituency: document.getElementById("voterConstituency").textContent,
+          voterID: document.getElementById("voterID").textContent
+        },
+        votes: selected
+      }));
+  
+      window.location.href = "vote-summary.html";
+    });
+  </script>
+  
+</body>
+</html>
