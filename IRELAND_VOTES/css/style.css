@@ -1,0 +1,97 @@
+    body {
+      background-color: #2f4f37; /* Green background */
+      color: white;
+    }
+
+    .navbar {
+      background: none; /* Transparent navigation */
+      background-color: #08a04b;
+    }
+
+    .navbar .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: row; /* Arrange form and map side-by-side */
+      align-items: flex-start; /* Align items to the top */
+      justify-content: center;
+      gap: 30px; /* Space between form and map */
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .registration-form {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .registration-form h2 {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .registration-form label {
+      color: white;
+    }
+
+    .btn-primary {
+      background-color: #f57f17; 
+      border: none;
+      font-weight: bold;
+      
+    }
+
+    .btn-primary:hover {
+      background-color: #f57f17;
+    }
+
+    footer {
+      background: #263f2a;
+      padding: 1rem 0;
+      text-align: center;
+      color: white;
+    }
+
+    /* Styles for the camera section */
+    .camera-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .camera {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    video, canvas {
+      border: 2px solid white;
+      border-radius: 10px;
+      max-width: 100%;
+      margin: 10px 0;
+    }
+
+   /* Map Styling */
+.map-container {
+  max-width: 300px; /* Adjust maximum width for the container */
+  text-align: left; /* Align the map container to the left */
+  margin-left: 10; /* Align container to the screen's left edge */
+}
+
+.map-container img {
+  width: 180%; /* Adjust the map size (smaller size) */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensure the map does not overflow */
+  margin: 0 auto; /* Center the map inside the container if needed */
+}
+
+
